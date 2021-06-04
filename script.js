@@ -1,3 +1,5 @@
+const transactionsUl = document.querySelector('#transactions')
+
 const dummyTransactions = [
     {id: 1, name: 'Bolo de brigadeiro', amount: -20},
     {id: 2, name: 'Salário', amount: 300},
@@ -7,11 +9,17 @@ const dummyTransactions = [
 
 const addTransactionIntoDOM = transaction => {
     const operator = transaction.amount < 0 ? '-' : '+'
+    const CSSClass = transaction.ammount < 0 ? 'minus' : 'plus'
+    const amountWithoutOperator = Math.abs(transaction.amount)
     const li = document.createElement('li')
 
-    /*<li class="minus">
-        Salário <span>-$400</span><button class="delete-btn">x</button>
-    </li>*/
+    li.classList.add(CSSClass)
+    li.innerHTML = `
+        ${transaction.name} <span>${operator} R$ ${amountWithoutOperator}</span><button class="delete-btn">x</button>
+    `
+
+    transactionsUl.append(li)
+
 }
 
-addTransactionIntoDOM(dummyTransactions[1])
+addTransactionIntoDOM(dummyTransactions[0])
