@@ -2,6 +2,10 @@ const transactionsUl = document.querySelector('#transactions')
 const incomeDisplay = document.querySelector('#money-plus')
 const expenseDisplay = document.querySelector('#money-minus')
 const balanceDisplay = document.querySelector('#balance')
+const form = document.querySelector('#form')
+const inputTransactionName = document.querySelector('#text')
+const inputTransactionAmount = document.querySelector('#amount')
+
 
 const dummyTransactions = [
     {id: 1, name: 'Bolo de brigadeiro', amount: -20},
@@ -51,3 +55,29 @@ const init = () => {
 }
 
 init()
+
+const generateID = () => Math.round(Math.random() * 1000)
+
+form.addEventListener('submit', event => {
+    event.preventDefault()
+
+    const transactionName = inputTransactionName.value.trim()
+    const transactionAmount = inputTransactionAmount.value.trim()
+
+    if(transactionName === '' || transactionAmount === '') {
+        alert('Por favor, preencha o nome e o valor da transação!')
+        return
+    }
+
+    const transaction = { 
+        id: generateID(), 
+        name: transactionName, 
+        amount: transactionAmount
+    }
+    
+    dummyTransactions.push(transaction)
+    init()
+
+    inputTransactionName.value = ''
+    inputTransactionAmount.value = ''
+})
