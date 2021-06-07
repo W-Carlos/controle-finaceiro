@@ -18,8 +18,18 @@ const addTransactionIntoDOM = transaction => {
         ${transaction.name} <span>${operator} R$ ${amountWithoutOperator}</span><button class="delete-btn">x</button>
     `
 
-    transactionsUl.append(li)
-
+    transactionsUl.prepend(li)
 }
 
-addTransactionIntoDOM(dummyTransactions[0])
+const updateBalanceValues = () => {
+    const transactionsAmounts = dummyTransactions.map(transaction => transaction.amount)
+    console.log(transactionsAmounts)
+}
+
+/*Quando a página for carregada vai inserir, a init vai adicionar as transações no DOM */
+const init = () => {
+    dummyTransactions.forEach(addTransactionIntoDOM)
+    updateBalanceValues()
+}
+
+init()
